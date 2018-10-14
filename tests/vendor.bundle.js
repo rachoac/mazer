@@ -1,0 +1,1 @@
+../../aframe-typescript-redux/dist-umd/vendor.bundle.js

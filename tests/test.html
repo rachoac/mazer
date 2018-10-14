@@ -1,0 +1,58 @@
+<html>
+
+<head>
+    <script type="text/javascript" src="vendor.bundle.js"></script>
+    <script type="text/javascript" src="index.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/redux/4.0.0/redux.js"></script>
+    <script>
+        const initialState = {
+            count: 1
+        }
+        const rootReducer = (state = initialState, action) => {
+            switch (action.type) {
+                case "DO_ADD":
+                    return { count: state.count + 1 }
+                default:
+                    return state;XMLDocument
+            }
+        }
+
+        const doAdd = () => ({ type: "DO_ADD" })
+
+        const store = Redux.createStore(rootReducer)
+        const system = new AframeRedux.ReduxConnectedSystem(store).register()
+
+        AFRAME.registerComponent("my-component", {
+            init: function () {
+                this.el.addEventListener("count", function (event) {
+                    const score = event.detail.newState
+                    this.setAttribute("value", score)
+                })
+            }
+        })
+
+        setInterval(() => store.dispatch(doAdd()), 1000)
+
+        function dispatchAdd() {
+            store.dispatch(doAdd())
+        }
+    </script>
+</head>
+
+<body>
+    <a onclick="javascript:dispatchAdd()" id="clickMe" href="#">Click me</a>
+    <a-scene embedded antialias="true">
+        <a-text my-component 
+            redux-connected="watchedKeys: count,blah,bleh,blue; aron: racho" 
+            value="This value controlled by the store!" color="black"
+            position="0 2 -5">
+        </a-text>
+    </a-text>
+        <a-entity>
+            <a-sky color="#ECECEC"></a-sky>
+            <a-plane position="0 0 -4" rotation="-90 0 0" width="4" height="4" color="#7BC8A4" shadow></a-plane>
+        </a-entity>
+    </a-scene>
+</body>
+
+</html>

@@ -1,0 +1,1 @@
+../../aframe-typescript-redux/dist-umd/index.js
